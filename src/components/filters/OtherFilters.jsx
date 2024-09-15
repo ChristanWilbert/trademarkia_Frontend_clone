@@ -5,8 +5,8 @@ import { DataContext } from "../../context/contextProvider";
 const Owners = memo(
   ({ value, handleChange, selection, handleCheckboxChange }) => {
     return (
-      <div className="flex flex-col">
-        <div className="flex flex-row rounded-lg bg-white p-2 items-center border-2 border-gray-300 focus-within:border-blue-500 w-full ml-2 mr-auto">
+      <div className="flex flex-col m-2">
+        <div className="flex flex-row rounded-lg bg-white p-2 items-center border-2 border-gray-300 focus-within:border-blue-500 w-full mr-auto">
           <div className="bg-white px-3">
             <MdOutlineSearch className="text-xl text-gray-600" />
           </div>
@@ -19,20 +19,24 @@ const Owners = memo(
           />
         </div>
 
-        {/* Render the checkboxes */}
         {selection
           .filter((item) =>
             item.name.toLowerCase().includes(value.toLowerCase())
-          ) // Filter based on the search value
+          )
           .map((item) => (
             <div className="flex flex-row" key={item.name}>
               <input
                 type="checkbox"
                 name={item.name}
                 checked={item.select}
-                onChange={() => handleCheckboxChange(item.name)} // Use the name as identifier
+                onChange={() => handleCheckboxChange(item.name)}
               />
-              <label htmlFor={item.name} className="ml-2">
+              <label
+                htmlFor={item.name}
+                className={`leading-none ml-2 py-1 ${
+                  item.select ? "text-[#4380EC]" : ""
+                }`}
+              >
                 {item.name}
               </label>
             </div>
@@ -45,8 +49,8 @@ const Owners = memo(
 const LawFirms = memo(
   ({ value, handleChange, selection, handleCheckboxChange }) => {
     return (
-      <div className="flex flex-col">
-        <div className="flex flex-row rounded-lg bg-white p-2 items-center border-2 border-gray-300 focus-within:border-blue-500 w-full ml-2 mr-auto">
+      <div className="flex flex-col m-2">
+        <div className="flex flex-row rounded-lg bg-white p-2 items-center border-2 border-gray-300 focus-within:border-blue-500 w-full mr-auto">
           <div className="bg-white px-3">
             <MdOutlineSearch className="text-xl text-gray-600" />
           </div>
@@ -59,20 +63,24 @@ const LawFirms = memo(
           />
         </div>
 
-        {/* Render the checkboxes */}
         {selection
           .filter((item) =>
             item.name.toLowerCase().includes(value.toLowerCase())
-          ) // Filter based on the search value
+          )
           .map((item) => (
             <div className="flex flex-row" key={item.name}>
               <input
                 type="checkbox"
                 name={item.name}
                 checked={item.select}
-                onChange={() => handleCheckboxChange(item.name)} // Use the name as identifier
+                onChange={() => handleCheckboxChange(item.name)}
               />
-              <label htmlFor={item.name} className="ml-2">
+              <label
+                htmlFor={item.name}
+                className={`leading-none ml-2 py-1 ${
+                  item.select ? "text-[#4380EC]" : ""
+                }`}
+              >
                 {item.name}
               </label>
             </div>
@@ -85,8 +93,8 @@ const LawFirms = memo(
 const Attorneys = memo(
   ({ value, handleChange, selection, handleCheckboxChange }) => {
     return (
-      <div className="flex flex-col">
-        <div className="flex flex-row rounded-lg bg-white p-2 items-center border-2 border-gray-300 focus-within:border-blue-500 w-full ml-2 mr-auto">
+      <div className="flex flex-col m-2">
+        <div className="flex flex-row rounded-lg bg-white p-2 items-center border-2 border-gray-300 focus-within:border-blue-500 w-full mr-auto">
           <div className="bg-white px-3">
             <MdOutlineSearch className="text-xl text-gray-600" />
           </div>
@@ -99,20 +107,24 @@ const Attorneys = memo(
           />
         </div>
 
-        {/* Render the checkboxes */}
         {selection
           .filter((item) =>
             item.name.toLowerCase().includes(value.toLowerCase())
-          ) // Filter based on the search value
+          )
           .map((item) => (
             <div className="flex flex-row" key={item.name}>
               <input
                 type="checkbox"
                 name={item.name}
                 checked={item.select}
-                onChange={() => handleCheckboxChange(item.name)} // Use the name as identifier
+                onChange={() => handleCheckboxChange(item.name)}
               />
-              <label htmlFor={item.name} className="ml-2">
+              <label
+                htmlFor={item.name}
+                className={`leading-none ml-2 py-1 ${
+                  item.select ? "text-[#4380EC]" : ""
+                }`}
+              >
                 {item.name}
               </label>
             </div>
@@ -126,7 +138,6 @@ const OtherFilters = () => {
   const { aggregations, setfilters, selectedaggregations } =
     useContext(DataContext);
 
-  // State for Owners, Law Firms, and Attorneys
   const [currentCategory, setcurrentCatergory] = useState(0);
   const [ownerSearchText, setownerSearchText] = useState("");
   const [lawSearchText, setlawSearchText] = useState("");
@@ -134,7 +145,6 @@ const OtherFilters = () => {
 
   const [ownerSelection, setOwnerSelection] = useState([]);
 
-  // Use useEffect to update ownerSelection whenever aggregations change
   useEffect(() => {
     if (aggregations?.current_owners?.buckets) {
       setOwnerSelection(
@@ -152,20 +162,17 @@ const OtherFilters = () => {
     aggregations?.current_owners?.buckets,
   ]);
 
-  // This useEffect updates the filters whenever the owner selection changes
   useEffect(() => {
     const ownerfilterlist = ownerSelection
       .filter((item) => item.select)
       .map((item) => item.name);
 
-    // Update the filters state with the selected owners
     setfilters((prevFilters) => ({
       ...prevFilters,
       owners: ownerfilterlist,
     }));
   }, [ownerSelection]);
 
-  // Handle checkbox state change
   const handleOwnerCheckboxChange = (name) => {
     const updatedSelection = ownerSelection.map((item) =>
       item.name === name ? { ...item, select: !item.select } : item

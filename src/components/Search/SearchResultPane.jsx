@@ -35,10 +35,10 @@ const SearchResultPane = () => {
       <div className="w-2/3 p-4 font-lg flex flex-row items-center font-semibold">
         <div>Also try searching for: </div>
         <div className="rounded-xl border-2 text-[#E7760E] border-[#E7760E] px-4 py-1 mx-2 bg-[#ffdfc287]">
-          p1
+          {filters.input_query.replace(/^./, "*")}
         </div>
         <div className="rounded-xl border-2 text-[#E7760E] border-[#E7760E] px-4 py-1 bg-[#ffdfc287]">
-          p2
+          {filters.input_query.slice(0, -1) + "*"}
         </div>
       </div>
       <div className="flex flex-row w-full">
