@@ -27,9 +27,7 @@ const SearchButton = ({ testing }) => {
             Accept: "application/json",
             "Accept-Encoding": "en-GB,en-US;",
             "Content-Type": "application/json",
-            Origin: "http://localhost:3001",
             priority: "u=1,i",
-            Referer: "http://localhost:3001/",
             "sec-ch-ua":
               '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
             "sec-ch-ua-platform": '"macOS"',
@@ -75,9 +73,9 @@ const SearchButton = ({ testing }) => {
               Accept: "application/json",
               "Accept-Encoding": "en-GB,en-US;",
               "Content-Type": "application/json",
-              Origin: "http://localhost:3001",
+
               priority: "u=1,i",
-              Referer: "http://localhost:3001/",
+
               "sec-ch-ua":
                 '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
               "sec-ch-ua-platform": '"macOS"',
